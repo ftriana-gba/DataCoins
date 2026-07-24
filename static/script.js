@@ -64,14 +64,6 @@ const demoParticipants = [
     badges: ['Analítica', 'Precisión'],
   },
   {
-    id: 'participant-9',
-    name: 'Gladis Cecilia Martínez Tobón',
-    cargo: 'Líder de procesos',
-    photo: 'assets/team/03-gladis-martinez.png',
-    totalPoints: 470,
-    badges: ['Procesos', 'Consistencia'],
-  },
-  {
     id: 'participant-10',
     name: 'Sara Yulitza Torres Díaz',
     cargo: 'Documentador',
@@ -100,12 +92,10 @@ const demoHistory = [
   { id: 'seed-2026-07-6', participantId: 'participant-6', participantName: 'Maria Camila Vélez Gómez', reason: 'Cierre de mes', amount: 132, date: '2026-07-02T13:00:00.000Z' },
   { id: 'seed-2026-07-7', participantId: 'participant-7', participantName: 'Fabio Andres Triana Rodriguez', reason: 'Cierre de mes', amount: 120, date: '2026-07-02T13:00:00.000Z' },
   { id: 'seed-2026-07-8', participantId: 'participant-8', participantName: 'Juan David Manosalva Duarte', reason: 'Cierre de mes', amount: 102, date: '2026-07-02T13:00:00.000Z' },
-  { id: 'seed-2026-07-9', participantId: 'participant-9', participantName: 'Gladis Cecilia Martínez Tobón', reason: 'Cierre de mes', amount: 88, date: '2026-07-02T13:00:00.000Z' },
   { id: 'seed-2026-07-10', participantId: 'participant-10', participantName: 'Sara Yulitza Torres Díaz', reason: 'Cierre de mes', amount: 68, date: '2026-07-02T13:00:00.000Z' },
   { id: 'seed-2026-07-11', participantId: 'participant-11', participantName: 'Jesus Santiago Ardila Orozco', reason: 'Cierre de mes', amount: 58, date: '2026-07-02T13:00:00.000Z' },
 
   // Junio 2026 (otro mes, otros protagonistas)
-  { id: 'seed-2026-06-1', participantId: 'participant-9', participantName: 'Gladis Cecilia Martínez Tobón', reason: 'Cierre de mes', amount: 230, date: '2026-06-15T13:00:00.000Z' },
   { id: 'seed-2026-06-2', participantId: 'participant-5', participantName: 'José Joaquín Cacao Chub', reason: 'Cierre de mes', amount: 205, date: '2026-06-15T13:00:00.000Z' },
   { id: 'seed-2026-06-3', participantId: 'participant-1', participantName: 'Jhonatan Méndez Céspedes', reason: 'Cierre de mes', amount: 190, date: '2026-06-15T13:00:00.000Z' },
   { id: 'seed-2026-06-4', participantId: 'participant-7', participantName: 'Fabio Andres Triana Rodriguez', reason: 'Cierre de mes', amount: 150, date: '2026-06-15T13:00:00.000Z' },
@@ -121,7 +111,6 @@ const demoHistory = [
   { id: 'seed-2026-05-1', participantId: 'participant-2', participantName: 'Liliana Pantoja', reason: 'Cierre de mes', amount: 175, date: '2026-05-10T13:00:00.000Z' },
   { id: 'seed-2026-05-2', participantId: 'participant-8', participantName: 'Juan David Manosalva Duarte', reason: 'Cierre de mes', amount: 160, date: '2026-05-10T13:00:00.000Z' },
   { id: 'seed-2026-05-3', participantId: 'participant-4', participantName: 'Laura Andrea Quinchia Espinosa', reason: 'Cierre de mes', amount: 150, date: '2026-05-10T13:00:00.000Z' },
-  { id: 'seed-2026-05-4', participantId: 'participant-9', participantName: 'Gladis Cecilia Martínez Tobón', reason: 'Cierre de mes', amount: 130, date: '2026-05-10T13:00:00.000Z' },
   { id: 'seed-2026-05-5', participantId: 'participant-1', participantName: 'Jhonatan Méndez Céspedes', reason: 'Cierre de mes', amount: 110, date: '2026-05-10T13:00:00.000Z' },
   { id: 'seed-2026-05-6', participantId: 'participant-11', participantName: 'Jesus Santiago Ardila Orozco', reason: 'Cierre de mes', amount: 100, date: '2026-05-10T13:00:00.000Z' },
   { id: 'seed-2026-05-7', participantId: 'participant-6', participantName: 'Maria Camila Vélez Gómez', reason: 'Cierre de mes', amount: 90, date: '2026-05-10T13:00:00.000Z' },
@@ -212,9 +201,9 @@ const tiers = [
 const defaultAvatar = 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=320&q=80';
 
 const STORAGE_KEYS = {
-  participants: 'gba-static-participants-v2',
+  participants: 'gba-static-participants-v3',
   user: 'gba-static-user',
-  history: 'gba-static-history-v1',
+  history: 'gba-static-history-v2',
 };
 
 let isAdmin = false;
