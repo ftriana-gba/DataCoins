@@ -5,7 +5,6 @@ const demoParticipants = [
     cargo: 'Líder de calidad',
     photo: 'assets/team/07-jhonatan-mendez.jpg',
     totalPoints: 920,
-    monthlyPoints: 248,
     badges: ['Calidad', 'Liderazgo'],
   },
   {
@@ -14,7 +13,6 @@ const demoParticipants = [
     cargo: 'Gerente Gobierno de Datos',
     photo: 'assets/team/11-liliana-pantoja.jpg',
     totalPoints: 860,
-    monthlyPoints: 210,
     badges: ['Gobierno de Datos', 'Visión estratégica'],
   },
   {
@@ -23,7 +21,6 @@ const demoParticipants = [
     cargo: 'Arquitecto de Datos',
     photo: 'assets/team/09-julian-duarte.png',
     totalPoints: 780,
-    monthlyPoints: 196,
     badges: ['Arquitectura', 'Innovación'],
   },
   {
@@ -32,7 +29,6 @@ const demoParticipants = [
     cargo: 'Product Owner',
     photo: 'assets/team/08-laura-quinchia.png',
     totalPoints: 705,
-    monthlyPoints: 180,
     badges: ['Producto', 'Priorización'],
   },
   {
@@ -41,7 +37,6 @@ const demoParticipants = [
     cargo: 'Ingeniero de Datos',
     photo: 'assets/team/10-jose-cacao.jpg',
     totalPoints: 640,
-    monthlyPoints: 172,
     badges: ['Ingeniería', 'Automatización'],
   },
   {
@@ -50,7 +45,6 @@ const demoParticipants = [
     cargo: 'Experto gestión del cambio',
     photo: 'assets/team/01-maria-camila-velez.jpg',
     totalPoints: 520,
-    monthlyPoints: 132,
     badges: ['Gestión del cambio', 'Comunicación'],
   },
   {
@@ -59,7 +53,6 @@ const demoParticipants = [
     cargo: 'Experto en analítica de datos',
     photo: 'assets/team/02-fabio-triana.jpg',
     totalPoints: 480,
-    monthlyPoints: 120,
     badges: ['Analítica', 'Insight'],
   },
   {
@@ -68,7 +61,6 @@ const demoParticipants = [
     cargo: 'Experto en analítica de datos',
     photo: 'assets/team/04-juan-david-manosalva.png',
     totalPoints: 455,
-    monthlyPoints: 102,
     badges: ['Analítica', 'Precisión'],
   },
   {
@@ -76,8 +68,7 @@ const demoParticipants = [
     name: 'Gladis Cecilia Martínez Tobón',
     cargo: 'Líder de procesos',
     photo: 'assets/team/03-gladis-martinez.png',
-    totalPoints: 410,
-    monthlyPoints: 88,
+    totalPoints: 470,
     badges: ['Procesos', 'Consistencia'],
   },
   {
@@ -86,7 +77,6 @@ const demoParticipants = [
     cargo: 'Documentador',
     photo: 'assets/team/06-sara-torres.png',
     totalPoints: 330,
-    monthlyPoints: 68,
     badges: ['Documentación', 'Detalle'],
   },
   {
@@ -95,9 +85,50 @@ const demoParticipants = [
     cargo: 'Documentador',
     photo: 'assets/team/05-jesus-santiago-ardila.png',
     totalPoints: 270,
-    monthlyPoints: 58,
     badges: ['Documentación', 'Apoyo'],
   },
+];
+
+// Historial de puntos por mes: cada mes arranca en cero, el podio se calcula a partir de estos registros.
+const demoHistory = [
+  // Julio 2026
+  { id: 'seed-2026-07-1', participantId: 'participant-1', participantName: 'Jhonatan Méndez Céspedes', reason: 'Cierre de mes', amount: 248, date: '2026-07-02T13:00:00.000Z' },
+  { id: 'seed-2026-07-2', participantId: 'participant-2', participantName: 'Liliana Pantoja', reason: 'Cierre de mes', amount: 210, date: '2026-07-02T13:00:00.000Z' },
+  { id: 'seed-2026-07-3', participantId: 'participant-3', participantName: 'Julián Duarte Sánchez', reason: 'Cierre de mes', amount: 196, date: '2026-07-02T13:00:00.000Z' },
+  { id: 'seed-2026-07-4', participantId: 'participant-4', participantName: 'Laura Andrea Quinchia Espinosa', reason: 'Cierre de mes', amount: 180, date: '2026-07-02T13:00:00.000Z' },
+  { id: 'seed-2026-07-5', participantId: 'participant-5', participantName: 'José Joaquín Cacao Chub', reason: 'Cierre de mes', amount: 172, date: '2026-07-02T13:00:00.000Z' },
+  { id: 'seed-2026-07-6', participantId: 'participant-6', participantName: 'Maria Camila Vélez Gómez', reason: 'Cierre de mes', amount: 132, date: '2026-07-02T13:00:00.000Z' },
+  { id: 'seed-2026-07-7', participantId: 'participant-7', participantName: 'Fabio Andres Triana Rodriguez', reason: 'Cierre de mes', amount: 120, date: '2026-07-02T13:00:00.000Z' },
+  { id: 'seed-2026-07-8', participantId: 'participant-8', participantName: 'Juan David Manosalva Duarte', reason: 'Cierre de mes', amount: 102, date: '2026-07-02T13:00:00.000Z' },
+  { id: 'seed-2026-07-9', participantId: 'participant-9', participantName: 'Gladis Cecilia Martínez Tobón', reason: 'Cierre de mes', amount: 88, date: '2026-07-02T13:00:00.000Z' },
+  { id: 'seed-2026-07-10', participantId: 'participant-10', participantName: 'Sara Yulitza Torres Díaz', reason: 'Cierre de mes', amount: 68, date: '2026-07-02T13:00:00.000Z' },
+  { id: 'seed-2026-07-11', participantId: 'participant-11', participantName: 'Jesus Santiago Ardila Orozco', reason: 'Cierre de mes', amount: 58, date: '2026-07-02T13:00:00.000Z' },
+
+  // Junio 2026 (otro mes, otros protagonistas)
+  { id: 'seed-2026-06-1', participantId: 'participant-9', participantName: 'Gladis Cecilia Martínez Tobón', reason: 'Cierre de mes', amount: 230, date: '2026-06-15T13:00:00.000Z' },
+  { id: 'seed-2026-06-2', participantId: 'participant-5', participantName: 'José Joaquín Cacao Chub', reason: 'Cierre de mes', amount: 205, date: '2026-06-15T13:00:00.000Z' },
+  { id: 'seed-2026-06-3', participantId: 'participant-1', participantName: 'Jhonatan Méndez Céspedes', reason: 'Cierre de mes', amount: 190, date: '2026-06-15T13:00:00.000Z' },
+  { id: 'seed-2026-06-4', participantId: 'participant-7', participantName: 'Fabio Andres Triana Rodriguez', reason: 'Cierre de mes', amount: 150, date: '2026-06-15T13:00:00.000Z' },
+  { id: 'seed-2026-06-5', participantId: 'participant-3', participantName: 'Julián Duarte Sánchez', reason: 'Cierre de mes', amount: 140, date: '2026-06-15T13:00:00.000Z' },
+  { id: 'seed-2026-06-6', participantId: 'participant-2', participantName: 'Liliana Pantoja', reason: 'Cierre de mes', amount: 120, date: '2026-06-15T13:00:00.000Z' },
+  { id: 'seed-2026-06-7', participantId: 'participant-10', participantName: 'Sara Yulitza Torres Díaz', reason: 'Cierre de mes', amount: 95, date: '2026-06-15T13:00:00.000Z' },
+  { id: 'seed-2026-06-8', participantId: 'participant-4', participantName: 'Laura Andrea Quinchia Espinosa', reason: 'Cierre de mes', amount: 80, date: '2026-06-15T13:00:00.000Z' },
+  { id: 'seed-2026-06-9', participantId: 'participant-6', participantName: 'Maria Camila Vélez Gómez', reason: 'Cierre de mes', amount: 60, date: '2026-06-15T13:00:00.000Z' },
+  { id: 'seed-2026-06-10', participantId: 'participant-8', participantName: 'Juan David Manosalva Duarte', reason: 'Cierre de mes', amount: 40, date: '2026-06-15T13:00:00.000Z' },
+  { id: 'seed-2026-06-11', participantId: 'participant-11', participantName: 'Jesus Santiago Ardila Orozco', reason: 'Cierre de mes', amount: 20, date: '2026-06-15T13:00:00.000Z' },
+
+  // Mayo 2026 (un mes distinto, con otra ganadora)
+  { id: 'seed-2026-05-1', participantId: 'participant-2', participantName: 'Liliana Pantoja', reason: 'Cierre de mes', amount: 175, date: '2026-05-10T13:00:00.000Z' },
+  { id: 'seed-2026-05-2', participantId: 'participant-8', participantName: 'Juan David Manosalva Duarte', reason: 'Cierre de mes', amount: 160, date: '2026-05-10T13:00:00.000Z' },
+  { id: 'seed-2026-05-3', participantId: 'participant-4', participantName: 'Laura Andrea Quinchia Espinosa', reason: 'Cierre de mes', amount: 150, date: '2026-05-10T13:00:00.000Z' },
+  { id: 'seed-2026-05-4', participantId: 'participant-9', participantName: 'Gladis Cecilia Martínez Tobón', reason: 'Cierre de mes', amount: 130, date: '2026-05-10T13:00:00.000Z' },
+  { id: 'seed-2026-05-5', participantId: 'participant-1', participantName: 'Jhonatan Méndez Céspedes', reason: 'Cierre de mes', amount: 110, date: '2026-05-10T13:00:00.000Z' },
+  { id: 'seed-2026-05-6', participantId: 'participant-11', participantName: 'Jesus Santiago Ardila Orozco', reason: 'Cierre de mes', amount: 100, date: '2026-05-10T13:00:00.000Z' },
+  { id: 'seed-2026-05-7', participantId: 'participant-6', participantName: 'Maria Camila Vélez Gómez', reason: 'Cierre de mes', amount: 90, date: '2026-05-10T13:00:00.000Z' },
+  { id: 'seed-2026-05-8', participantId: 'participant-3', participantName: 'Julián Duarte Sánchez', reason: 'Cierre de mes', amount: 75, date: '2026-05-10T13:00:00.000Z' },
+  { id: 'seed-2026-05-9', participantId: 'participant-5', participantName: 'José Joaquín Cacao Chub', reason: 'Cierre de mes', amount: 60, date: '2026-05-10T13:00:00.000Z' },
+  { id: 'seed-2026-05-10', participantId: 'participant-7', participantName: 'Fabio Andres Triana Rodriguez', reason: 'Cierre de mes', amount: 45, date: '2026-05-10T13:00:00.000Z' },
+  { id: 'seed-2026-05-11', participantId: 'participant-10', participantName: 'Sara Yulitza Torres Díaz', reason: 'Cierre de mes', amount: 30, date: '2026-05-10T13:00:00.000Z' },
 ];
 
 const pointReasons = [
@@ -116,23 +147,23 @@ const pointReasons = [
 
 const dataCoinFeatures = [
   {
-    title: 'Visibiliza el impacto',
+    title: 'Todos ven lo que aportas',
     label: 'Reconocimiento',
-    description: 'Cada acción recibe puntos, cada logro es reconocido públicamente para fomentar compromiso.',
+    description: 'Sin peros ni "ya lo vi por ahí": cada acción queda registrada y visible para todo el equipo.',
     icon: 'star',
     accent: 'teal',
   },
   {
-    title: 'Hazlo tangible',
+    title: 'Se puede contar (literal)',
     label: 'Motivación',
-    description: 'Los datos se convierten en recompensas digitales que incentivan la participación constante.',
+    description: 'Lo que antes era un "buen trabajo" de pasillo, ahora suma monedas que puedes ver crecer.',
     icon: 'zap',
     accent: 'purple',
   },
   {
-    title: 'Alinea al equipo',
+    title: 'Menos ruido, más foco',
     label: 'Alineación',
-    description: 'DataCoins ayuda a enfocar los esfuerzos en lo que más aporta a resultados concretos.',
+    description: 'El podio y los niveles empujan al equipo hacia lo que de verdad mueve al Gobierno de Datos.',
     icon: 'target',
     accent: 'teal',
   },
@@ -158,6 +189,7 @@ const ICONS = {
   trash: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>',
   check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>',
   x: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>',
+  legendGlyph: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-3 4-6 9-7 14 2-1.4 4.5-2 7-2s5 .6 7 2c-1-5-4-10-7-14z"/><path d="M5 17c2-1.4 4.5-2 7-2s5 .6 7 2"/><circle cx="12" cy="4.2" r="1" fill="currentColor" stroke="none"/></svg>',
 };
 
 function mountIcons(root = document) {
@@ -190,6 +222,7 @@ let currentFilter = 'all';
 let currentSort = 'points';
 let searchTerm = '';
 let editingHistoryId = null;
+let selectedMonth = null;
 
 const publicView = document.getElementById('publicView');
 const adminView = document.getElementById('adminView');
@@ -201,6 +234,7 @@ const filterChips = document.getElementById('filterChips');
 const emptyState = document.getElementById('emptyState');
 const searchInput = document.getElementById('searchInput');
 const sortSelect = document.getElementById('sortSelect');
+const monthSelect = document.getElementById('monthSelect');
 
 const loginModal = document.getElementById('loginModal');
 const loginButton = document.getElementById('loginButton');
@@ -285,6 +319,43 @@ function formatDateTime(iso) {
   return `${datePart}, ${timePart}`;
 }
 
+// --- Puntos por mes: cada mes empieza en cero, el podio se calcula desde el historial ---
+function getMonthKey(iso) {
+  const date = new Date(iso);
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+}
+
+function getCurrentMonthKey() {
+  return getMonthKey(new Date().toISOString());
+}
+
+function formatMonthLabel(monthKey) {
+  const [year, month] = monthKey.split('-').map(Number);
+  const date = new Date(year, month - 1, 1);
+  const label = date.toLocaleDateString('es-CO', { month: 'long', year: 'numeric' });
+  return label.charAt(0).toUpperCase() + label.slice(1);
+}
+
+function getAvailableMonths() {
+  const months = new Set(getHistory().map((entry) => getMonthKey(entry.date)));
+  months.add(getCurrentMonthKey());
+  return Array.from(months).sort().reverse();
+}
+
+function getMonthlyPointsMap(monthKey) {
+  const map = {};
+  getHistory().forEach((entry) => {
+    if (getMonthKey(entry.date) === monthKey) {
+      map[entry.participantId] = (map[entry.participantId] || 0) + entry.amount;
+    }
+  });
+  return map;
+}
+
+function getMonthlyPoints(participantId, monthKey) {
+  return getMonthlyPointsMap(monthKey)[participantId] || 0;
+}
+
 function getTier(points) {
   let current = tiers[0];
   for (const tier of tiers) {
@@ -359,8 +430,9 @@ function renderFilterChips() {
   });
 }
 
-function applyFiltersAndSort(participants) {
+function applyFiltersAndSort(participants, monthKey) {
   let result = participants.slice();
+  const monthMap = getMonthlyPointsMap(monthKey);
 
   if (currentFilter !== 'all') {
     result = result.filter((p) => getTier(p.totalPoints).tier.id === currentFilter);
@@ -374,7 +446,7 @@ function applyFiltersAndSort(participants) {
   }
 
   if (currentSort === 'points') {
-    result.sort((a, b) => b.totalPoints - a.totalPoints);
+    result.sort((a, b) => (monthMap[b.id] || 0) - (monthMap[a.id] || 0));
   } else if (currentSort === 'name') {
     result.sort((a, b) => a.name.localeCompare(b.name));
   } else if (currentSort === 'cargo') {
@@ -384,9 +456,11 @@ function applyFiltersAndSort(participants) {
   return result;
 }
 
-function renderParticipants(participants) {
+function renderParticipants(participants, monthKey) {
   if (!participantGrid) return;
-  const filtered = applyFiltersAndSort(participants);
+  const filtered = applyFiltersAndSort(participants, monthKey);
+  const monthMap = getMonthlyPointsMap(monthKey);
+  const monthLabel = formatMonthLabel(monthKey);
   participantGrid.innerHTML = '';
 
   if (emptyState) {
@@ -398,6 +472,7 @@ function renderParticipants(participants) {
     card.className = 'participant-card';
 
     const photo = participant.photo || defaultAvatar;
+    const monthPoints = monthMap[participant.id] || 0;
     const badges = participant.badges.length > 0 ? participant.badges.map((b) => `<span class="mini-badge">${escapeHtml(b)}</span>`).join('') : '';
 
     card.innerHTML = `
@@ -409,7 +484,8 @@ function renderParticipants(participants) {
             <p>${escapeHtml(participant.cargo)}</p>
           </div>
         </div>
-        <div class="points"><span class="points-value" data-count-to="${participant.totalPoints}">0</span> <span class="points-suffix">Data Coins</span></div>
+        <div class="points"><span class="points-value" data-count-to="${monthPoints}">0</span> <span class="points-suffix">en ${monthLabel}</span></div>
+        <p class="small-text lifetime-total">${participant.totalPoints} Data Coins acumulados en total</p>
         ${tierBadgeHTML(getTier(participant.totalPoints).tier)}
         ${tierProgressHTML(participant.totalPoints)}
         <div class="badges-row">${badges}</div>
@@ -442,14 +518,18 @@ function renderDataCoinFeatures() {
   });
 }
 
-function renderPodium(participants) {
+function renderPodium(participants, monthKey) {
   if (!podiumGrid) return;
   podiumGrid.innerHTML = '';
-  const sorted = participants.slice().sort((a, b) => b.monthlyPoints - a.monthlyPoints);
+  const monthMap = getMonthlyPointsMap(monthKey);
+  const sorted = participants
+    .map((p) => ({ ...p, monthPoints: monthMap[p.id] || 0 }))
+    .sort((a, b) => b.monthPoints - a.monthPoints);
   const podium = sorted.slice(0, 3);
+  const hasPoints = podium.some((p) => p.monthPoints > 0);
 
-  if (podium.length === 0) {
-    podiumGrid.innerHTML = '<p class="podium-empty">No hay datos para este mes.</p>';
+  if (!hasPoints) {
+    podiumGrid.innerHTML = '<p class="podium-empty">Este mes apenas comienza. ¡Sé el primero en ganar Data Coins!</p>';
     return;
   }
 
@@ -473,7 +553,7 @@ function renderPodium(participants) {
       </div>
       <p class="podium-name">${escapeHtml(participant.name)}</p>
       <p class="podium-role"><span class="podium-role-icon">${ICONS[tier.iconKey]}</span>${tier.name}</p>
-      <p class="podium-points"><span class="points-value" data-count-to="${participant.monthlyPoints}">0</span> pts</p>
+      <p class="podium-points"><span class="points-value" data-count-to="${participant.monthPoints}">0</span> pts</p>
       <div class="podium-step step-${placeNumber}">${placeNumber}</div>
     `;
     podiumGrid.appendChild(place);
@@ -481,6 +561,17 @@ function renderPodium(participants) {
 
   animateCardEntrance(podiumGrid.querySelectorAll('.podium-place'), { y: 40, scale: 0.85 });
   animateCounters(podiumGrid.querySelectorAll('.points-value'));
+}
+
+function renderMonthOptions() {
+  if (!monthSelect) return;
+  const months = getAvailableMonths();
+  if (!selectedMonth || !months.includes(selectedMonth)) {
+    selectedMonth = months[0];
+  }
+  monthSelect.innerHTML = months
+    .map((monthKey) => `<option value="${monthKey}" ${monthKey === selectedMonth ? 'selected' : ''}>${formatMonthLabel(monthKey)}</option>`)
+    .join('');
 }
 
 // --- Animaciones (GSAP) ---
@@ -543,6 +634,7 @@ function initScrollReveal() {
     '.quick-actions-buttons',
     '.what-is-data-coin .section-intro',
     '.coin-showcase',
+    '.legend-card',
     '.tiers-section .section-intro',
   ];
 
@@ -583,9 +675,10 @@ function initScrollReveal() {
 
 function refreshUI() {
   renderFilterChips();
+  renderMonthOptions();
   const participants = getParticipants();
-  renderParticipants(participants);
-  renderPodium(participants);
+  renderParticipants(participants, selectedMonth);
+  renderPodium(participants, selectedMonth);
 }
 
 function applyAuthView() {
@@ -722,7 +815,6 @@ function saveHistoryEdit(id, newAmount) {
   const participant = participants.find((p) => p.id === entry.participantId);
   if (participant) {
     participant.totalPoints = Math.max(0, participant.totalPoints + diff);
-    participant.monthlyPoints = Math.max(0, participant.monthlyPoints + diff);
     setParticipants(participants);
   }
 
@@ -746,7 +838,6 @@ function deleteHistoryEntry(id) {
   const participant = participants.find((p) => p.id === entry.participantId);
   if (participant) {
     participant.totalPoints = Math.max(0, participant.totalPoints - entry.amount);
-    participant.monthlyPoints = Math.max(0, participant.monthlyPoints - entry.amount);
     setParticipants(participants);
   }
 
@@ -804,14 +895,23 @@ function mountEvents() {
   if (searchInput) {
     searchInput.addEventListener('input', (event) => {
       searchTerm = event.target.value;
-      renderParticipants(getParticipants());
+      renderParticipants(getParticipants(), selectedMonth);
     });
   }
 
   if (sortSelect) {
     sortSelect.addEventListener('change', (event) => {
       currentSort = event.target.value;
-      renderParticipants(getParticipants());
+      renderParticipants(getParticipants(), selectedMonth);
+    });
+  }
+
+  if (monthSelect) {
+    monthSelect.addEventListener('change', (event) => {
+      selectedMonth = event.target.value;
+      const participants = getParticipants();
+      renderParticipants(participants, selectedMonth);
+      renderPodium(participants, selectedMonth);
     });
   }
 
@@ -856,7 +956,6 @@ function mountEvents() {
       if (!participant) return;
 
       participant.totalPoints += amount;
-      participant.monthlyPoints += amount;
       setParticipants(participants);
 
       const history = getHistory();
@@ -884,6 +983,12 @@ function initialize() {
   if (!localStorage.getItem(STORAGE_KEYS.participants)) {
     saveStorage(STORAGE_KEYS.participants, demoParticipants);
   }
+
+  if (!localStorage.getItem(STORAGE_KEYS.history)) {
+    saveStorage(STORAGE_KEYS.history, demoHistory);
+  }
+
+  selectedMonth = getCurrentMonthKey();
 
   initializeAuth();
   mountIcons();

@@ -35,7 +35,7 @@
           </div>
         </div>
         <div class="quick-actions-copy">
-          <p>Panel de motivación del equipo de Gobierno de Datos: reconoce aportes, sube de nivel y sigue el ranking del mes.</p>
+          <p>Aquí cada buen dato, cada idea y cada favor entre compañeros se paga en monedas de leyenda. Bienvenido al reino de los Data Coins del equipo de Gobierno de Datos.</p>
         </div>
         <div class="quick-actions-buttons">
           <button id="loginButton" class="btn btn-primary"><span class="btn-icon" data-icon="lock"></span>Ingresar administradora</button>
@@ -47,8 +47,8 @@
         <div class="data-coin-top">
           <div class="section-intro">
             <p class="panel-label">Qué es un Data Coin</p>
-            <h2>Monedas digitales para reconocer resultados y generar <span class="underline-squiggle">orgullo del equipo</span>.</h2>
-            <p>Un Data Coin es una unidad de valor interna que transforma logros, ideas y colaboración en una experiencia visible, gamificada y alineada con los objetivos de tu empresa.</p>
+            <h2>No son solo puntos. Son la prueba de que tu trabajo <span class="underline-squiggle">sí se nota</span>.</h2>
+            <p>Cada Data Coin nace de un gesto real: una idea que ahorró tiempo, un dato bien cuidado, una mano que ayudó a un compañero. Acumúlalos, sube de nivel y demuéstrale al equipo por qué te los ganaste.</p>
           </div>
           <div class="coin-showcase">
             <span class="sparkle sparkle-e" data-icon="sparkle"></span>
@@ -89,6 +89,26 @@
             <h3>Alinea al equipo</h3>
             <p>DataCoins ayuda a enfocar los esfuerzos en lo que más aporta a resultados concretos.</p>
           </article>
+        </div>
+      </section>
+
+      <section class="legend-section">
+        <div class="legend-card">
+          <span class="legend-glyph" data-icon="legendGlyph"></span>
+          <p class="legend-kicker">Una leyenda del Gobierno de Datos</p>
+          <h2>El origen de los Data Coins</h2>
+          <p class="legend-text">
+            Cuentan los más antiguos del equipo que, antes de que existieran los tableros y los dashboards, los datos andaban sueltos por ahí: dispersos, mal nombrados, sin dueño. Fue entonces cuando aparecieron los <strong>Duendes Sagrados del Dato</strong>, guardianes diminutos que viven entre los servidores y solo se dejan ver por quienes cuidan la información con honestidad.
+          </p>
+          <p class="legend-text">
+            Cada vez que alguien resuelve un problema, documenta algo como se debe o le tiende la mano a un compañero, uno de esos duendes forja en secreto una moneda con polvo de estrellas y la deja caer desde lo más alto de la nube. Así nace un Data Coin: un pedacito de cielo digital que premia el ingenio, la verdad de los datos y las ganas de hacer bien las cosas.
+          </p>
+          <p class="legend-signature">— Contada de generación en generación en Data Solidaria</p>
+          <div class="legend-stars" aria-hidden="true">
+            <span class="sparkle legend-star-a" data-icon="sparkle"></span>
+            <span class="sparkle legend-star-b" data-icon="sparkle"></span>
+            <span class="sparkle legend-star-c" data-icon="sparkle"></span>
+          </div>
         </div>
       </section>
 
@@ -133,7 +153,7 @@
               <p class="panel-label">Podio mensual</p>
               <h2>Ranking del mes</h2>
             </div>
-            <span class="badge">Jul 2026</span>
+            <select id="monthSelect" class="select-field month-select"></select>
           </div>
           <div id="podiumGrid" class="podium-stage"></div>
         </section>
@@ -238,7 +258,6 @@
           </label>
           <button type="submit" class="btn btn-primary full">Ingresar</button>
         </form>
-        <p class="hint">Credenciales demo: admin / GBA2026.</p>
       </div>
     </div>
 
