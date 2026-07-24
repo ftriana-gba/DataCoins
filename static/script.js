@@ -288,6 +288,18 @@ function setHistory(history) {
   saveStorage(STORAGE_KEYS.history, history);
 }
 
+function getParticipantTotalPoints(participantOrId, history = getHistory()) {
+  const participantId = typeof participantOrId === 'string' ? participantOrId : participantOrId?.id;
+  if (!participantId) return 0;
+
+  return history.reduce((total, entry) => {
+    if (entry.participantId === participantId) {
+      return total + Number(entry.amount || 0);
+    }
+    return total;
+  }, 0);
+}
+
 function showToast(message) {
   if (!notification) return;
   notification.textContent = message;
@@ -424,7 +436,7 @@ function applyFiltersAndSort(participants, monthKey) {
   const monthMap = getMonthlyPointsMap(monthKey);
 
   if (currentFilter !== 'all') {
-    result = result.filter((p) => getTier(p.totalPoints).tier.id === currentFilter);
+    result = result.filter((p) => getTier(getParticipantTotalPoints(p)).tier.id === currentFilter);
   }
 
   if (searchTerm.trim()) {
@@ -462,6 +474,7 @@ function renderParticipants(participants, monthKey) {
 
     const photo = participant.photo || defaultAvatar;
     const monthPoints = monthMap[participant.id] || 0;
+    const totalPoints = getParticipantTotalPoints(participant);
     const badges = participant.badges.length > 0 ? participant.badges.map((b) => `<span class="mini-badge">${escapeHtml(b)}</span>`).join('') : '';
 
     card.innerHTML = `
@@ -474,9 +487,9 @@ function renderParticipants(participants, monthKey) {
           </div>
         </div>
         <div class="points"><span class="points-value" data-count-to="${monthPoints}">0</span> <span class="points-suffix">en ${monthLabel}</span></div>
-        <p class="small-text lifetime-total">${participant.totalPoints} Data Coins acumulados en total</p>
-        ${tierBadgeHTML(getTier(participant.totalPoints).tier)}
-        ${tierProgressHTML(participant.totalPoints)}
+        <p class="small-text lifetime-total">${totalPoints} Data Coins acumulados en total</p>
+        ${tierBadgeHTML(getTier(totalPoints).tier)}
+        ${tierProgressHTML(totalPoints)}
         <div class="badges-row">${badges}</div>
       </div>
     `;
@@ -530,7 +543,8 @@ function renderPodium(participants, monthKey) {
     if (!participant) return;
     const placeNumber = sortedIndex + 1;
     const photo = participant.photo || defaultAvatar;
-    const tier = getTier(participant.totalPoints).tier;
+    const totalPoints = getParticipantTotalPoints(participant);
+    const tier = getTier(totalPoints).tier;
 
     const place = document.createElement('div');
     place.className = `podium-place place-${placeNumber}`;
@@ -799,14 +813,6 @@ function saveHistoryEdit(id, newAmount) {
   const entry = history.find((h) => h.id === id);
   if (!entry) return;
 
-  const diff = newAmount - entry.amount;
-  const participants = getParticipants();
-  const participant = participants.find((p) => p.id === entry.participantId);
-  if (participant) {
-    participant.totalPoints = Math.max(0, participant.totalPoints + diff);
-    setParticipants(participants);
-  }
-
   entry.amount = newAmount;
   setHistory(history);
   editingHistoryId = null;
@@ -822,13 +828,6 @@ function deleteHistoryEntry(id) {
 
   const confirmed = window.confirm(`¿Eliminar el aporte de ${entry.amount} puntos a ${entry.participantName}?`);
   if (!confirmed) return;
-
-  const participants = getParticipants();
-  const participant = participants.find((p) => p.id === entry.participantId);
-  if (participant) {
-    participant.totalPoints = Math.max(0, participant.totalPoints - entry.amount);
-    setParticipants(participants);
-  }
 
   setHistory(history.filter((h) => h.id !== id));
   renderHistoryTable();
@@ -943,9 +942,6 @@ function mountEvents() {
       const participants = getParticipants();
       const participant = participants.find((p) => p.id === participantId);
       if (!participant) return;
-
-      participant.totalPoints += amount;
-      setParticipants(participants);
 
       const history = getHistory();
       history.push({
