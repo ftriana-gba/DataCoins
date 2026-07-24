@@ -300,6 +300,15 @@ function getParticipantTotalPoints(participantOrId, history = getHistory()) {
   }, 0);
 }
 
+function syncParticipantsTotals(participants = getParticipants(), history = getHistory()) {
+  const updatedParticipants = participants.map((participant) => ({
+    ...participant,
+    totalPoints: getParticipantTotalPoints(participant, history),
+  }));
+  setParticipants(updatedParticipants);
+  return updatedParticipants;
+}
+
 function showToast(message) {
   if (!notification) return;
   notification.textContent = message;
@@ -679,7 +688,7 @@ function initScrollReveal() {
 function refreshUI() {
   renderFilterChips();
   renderMonthOptions();
-  const participants = getParticipants();
+  const participants = syncParticipantsTotals(getParticipants(), getHistory());
   renderParticipants(participants, selectedMonth);
   renderPodium(participants, selectedMonth);
 }
@@ -973,6 +982,7 @@ function initialize() {
     saveStorage(STORAGE_KEYS.history, demoHistory);
   }
 
+  syncParticipantsTotals(getParticipants(), getHistory());
   selectedMonth = getCurrentMonthKey();
 
   initializeAuth();
