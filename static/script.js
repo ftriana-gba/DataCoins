@@ -152,6 +152,12 @@ const ICONS = {
   flag: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 21V4"/><path d="M6 4h11l-2.5 3.5L17 11H6"/></svg>',
   sparkle: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.6 5.9L19 9.5l-5.4 1.6L12 17l-1.6-5.9L5 9.5l5.4-1.6L12 2z"/></svg>',
   sparkles: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M3 12h3M18 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>',
+  coin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5.5"/><path d="M12 8v8M9.3 10h5.4"/></svg>',
+  logout: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>',
+  pencil: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>',
+  trash: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>',
+  check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>',
+  x: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>',
 };
 
 function mountIcons(root = document) {
@@ -176,12 +182,17 @@ const defaultAvatar = 'https://images.unsplash.com/photo-1544005313-94ddf0286df2
 const STORAGE_KEYS = {
   participants: 'gba-static-participants-v2',
   user: 'gba-static-user',
+  history: 'gba-static-history-v1',
 };
 
 let isAdmin = false;
 let currentFilter = 'all';
 let currentSort = 'points';
 let searchTerm = '';
+let editingHistoryId = null;
+
+const publicView = document.getElementById('publicView');
+const adminView = document.getElementById('adminView');
 
 const participantGrid = document.getElementById('participantsGrid');
 const podiumGrid = document.getElementById('podiumGrid');
@@ -199,7 +210,12 @@ const loginForm = document.getElementById('loginForm');
 const notification = document.getElementById('notification');
 const modeBadge = document.getElementById('modeBadge');
 
-const awardPointsButton = document.getElementById('awardPointsButton');
+const adminAwardButton = document.getElementById('adminAwardButton');
+const logoutButton = document.getElementById('logoutButton');
+const historyTableBody = document.getElementById('historyTableBody');
+const historyEmptyState = document.getElementById('historyEmptyState');
+const historyCountBadge = document.getElementById('historyCountBadge');
+
 const pointsModal = document.getElementById('pointsModal');
 const closePointsModal = document.getElementById('closePointsModal');
 const pointsForm = document.getElementById('pointsForm');
@@ -237,6 +253,18 @@ function saveCurrentUser(user) {
   saveStorage(STORAGE_KEYS.user, user);
 }
 
+function clearCurrentUser() {
+  localStorage.removeItem(STORAGE_KEYS.user);
+}
+
+function getHistory() {
+  return getStorage(STORAGE_KEYS.history, []);
+}
+
+function setHistory(history) {
+  saveStorage(STORAGE_KEYS.history, history);
+}
+
 function showToast(message) {
   if (!notification) return;
   notification.textContent = message;
@@ -248,6 +276,13 @@ function escapeHtml(value) {
   const div = document.createElement('div');
   div.textContent = value;
   return div.innerHTML;
+}
+
+function formatDateTime(iso) {
+  const date = new Date(iso);
+  const datePart = date.toLocaleDateString('es-CO', { day: '2-digit', month: 'short', year: 'numeric' });
+  const timePart = date.toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' });
+  return `${datePart}, ${timePart}`;
 }
 
 function getTier(points) {
@@ -291,8 +326,9 @@ function renderTiersLegend() {
         .map((t, i) => `<span class="tier-dot ${i === index ? 'active' : ''}" style="${i === index ? `--dot-color:${tier.color}` : ''}"></span>`)
         .join('');
       return `
-        <article class="tier-card">
-          <span class="tier-icon" style="--tier-gradient:${tier.gradient}; --tier-color:${tier.color}">${ICONS[tier.iconKey]}</span>
+        <article class="tier-card" style="--tier-gradient:${tier.gradient}; --tier-color:${tier.color}">
+          <span class="tier-level">${index + 1}/${tiers.length}</span>
+          <span class="tier-icon">${ICONS[tier.iconKey]}</span>
           <h3>${tier.name}</h3>
           <p>${range}</p>
           <div class="tier-dots">${dots}</div>
@@ -377,15 +413,10 @@ function renderParticipants(participants) {
         ${tierBadgeHTML(getTier(participant.totalPoints).tier)}
         ${tierProgressHTML(participant.totalPoints)}
         <div class="badges-row">${badges}</div>
-        ${isAdmin ? `<button type="button" class="award-btn" data-award="${participant.id}">🪙 Otorgar puntos</button>` : ''}
       </div>
     `;
 
     participantGrid.appendChild(card);
-  });
-
-  participantGrid.querySelectorAll('[data-award]').forEach((btn) => {
-    btn.addEventListener('click', () => openPointsModal(btn.dataset.award));
   });
 
   animateCardEntrance(participantGrid.querySelectorAll('.participant-card'));
@@ -557,15 +588,32 @@ function refreshUI() {
   renderPodium(participants);
 }
 
+function applyAuthView() {
+  if (publicView) publicView.classList.toggle('hidden', isAdmin);
+  if (adminView) adminView.classList.toggle('hidden', !isAdmin);
+}
+
 function initializeAuth() {
   const currentUser = getCurrentUser();
   isAdmin = Boolean(currentUser && currentUser.username === 'admin');
-  if (modeBadge) {
-    modeBadge.textContent = isAdmin ? 'Modo administradora' : 'Modo visitante';
-  }
-  if (awardPointsButton) {
-    awardPointsButton.classList.toggle('hidden', !isAdmin);
-  }
+  applyAuthView();
+}
+
+function enterAdminMode() {
+  saveCurrentUser({ username: 'admin', role: 'admin' });
+  isAdmin = true;
+  applyAuthView();
+  renderHistoryTable();
+  showToast('Administradora conectada.');
+}
+
+function exitAdminMode() {
+  clearCurrentUser();
+  isAdmin = false;
+  editingHistoryId = null;
+  applyAuthView();
+  refreshUI();
+  showToast('Sesión cerrada.');
 }
 
 function populatePointsForm() {
@@ -586,6 +634,126 @@ function openPointsModal(preselectId) {
     pointsParticipantSelect.value = preselectId;
   }
   pointsModal.classList.remove('hidden');
+}
+
+function renderHistoryTable() {
+  if (!historyTableBody) return;
+  const history = getHistory().slice().sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  if (historyCountBadge) {
+    historyCountBadge.textContent = `${history.length} registro${history.length === 1 ? '' : 's'}`;
+  }
+
+  if (historyEmptyState) {
+    historyEmptyState.classList.toggle('hidden', history.length > 0);
+  }
+
+  historyTableBody.innerHTML = history
+    .map((entry) => {
+      const isEditing = entry.id === editingHistoryId;
+      const pointsCell = isEditing
+        ? `<input type="number" class="history-edit-input" id="historyEditInput" value="${entry.amount}" min="1" max="500" />`
+        : `<span class="history-points">+${entry.amount}</span>`;
+      const actionsCell = isEditing
+        ? `
+          <button type="button" class="icon-btn" data-save="${entry.id}" title="Guardar">${ICONS.check}</button>
+          <button type="button" class="icon-btn" data-cancel="${entry.id}" title="Cancelar">${ICONS.x}</button>
+        `
+        : `
+          <button type="button" class="icon-btn" data-edit="${entry.id}" title="Editar puntos">${ICONS.pencil}</button>
+          <button type="button" class="icon-btn icon-btn-danger" data-delete="${entry.id}" title="Eliminar aporte">${ICONS.trash}</button>
+        `;
+
+      return `
+        <tr data-row="${entry.id}">
+          <td>${formatDateTime(entry.date)}</td>
+          <td>${escapeHtml(entry.participantName)}</td>
+          <td>${escapeHtml(entry.reason)}</td>
+          <td>${pointsCell}</td>
+          <td class="history-actions">${actionsCell}</td>
+        </tr>
+      `;
+    })
+    .join('');
+
+  historyTableBody.querySelectorAll('[data-edit]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      editingHistoryId = btn.dataset.edit;
+      renderHistoryTable();
+      const input = document.getElementById('historyEditInput');
+      if (input) input.focus();
+    });
+  });
+
+  historyTableBody.querySelectorAll('[data-cancel]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      editingHistoryId = null;
+      renderHistoryTable();
+    });
+  });
+
+  historyTableBody.querySelectorAll('[data-save]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.save;
+      const input = document.getElementById('historyEditInput');
+      const newAmount = Number(input?.value) || 0;
+      if (newAmount <= 0) {
+        showToast('Ingresa una cantidad de puntos válida.');
+        return;
+      }
+      saveHistoryEdit(id, newAmount);
+    });
+  });
+
+  historyTableBody.querySelectorAll('[data-delete]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      deleteHistoryEntry(btn.dataset.delete);
+    });
+  });
+}
+
+function saveHistoryEdit(id, newAmount) {
+  const history = getHistory();
+  const entry = history.find((h) => h.id === id);
+  if (!entry) return;
+
+  const diff = newAmount - entry.amount;
+  const participants = getParticipants();
+  const participant = participants.find((p) => p.id === entry.participantId);
+  if (participant) {
+    participant.totalPoints = Math.max(0, participant.totalPoints + diff);
+    participant.monthlyPoints = Math.max(0, participant.monthlyPoints + diff);
+    setParticipants(participants);
+  }
+
+  entry.amount = newAmount;
+  setHistory(history);
+  editingHistoryId = null;
+  renderHistoryTable();
+  refreshUI();
+  showToast('Puntos actualizados.');
+}
+
+function deleteHistoryEntry(id) {
+  const history = getHistory();
+  const entry = history.find((h) => h.id === id);
+  if (!entry) return;
+
+  const confirmed = window.confirm(`¿Eliminar el aporte de ${entry.amount} puntos a ${entry.participantName}?`);
+  if (!confirmed) return;
+
+  const participants = getParticipants();
+  const participant = participants.find((p) => p.id === entry.participantId);
+  if (participant) {
+    participant.totalPoints = Math.max(0, participant.totalPoints - entry.amount);
+    participant.monthlyPoints = Math.max(0, participant.monthlyPoints - entry.amount);
+    setParticipants(participants);
+  }
+
+  setHistory(history.filter((h) => h.id !== id));
+  renderHistoryTable();
+  refreshUI();
+  showToast('Aporte eliminado.');
 }
 
 function mountEvents() {
@@ -610,16 +778,19 @@ function mountEvents() {
       const pass = passInput ? passInput.value.trim() : '';
 
       if (user === 'admin' && pass === 'GBA2026') {
-        saveCurrentUser({ username: 'admin', role: 'admin' });
-        isAdmin = true;
-        initializeAuth();
-        refreshUI();
-        showToast('Administradora conectada.');
+        enterAdminMode();
         if (loginModal) loginModal.classList.add('hidden');
+        loginForm.reset();
         return;
       }
 
       showToast('Usuario o contraseña incorrectos.');
+    });
+  }
+
+  if (logoutButton) {
+    logoutButton.addEventListener('click', () => {
+      exitAdminMode();
     });
   }
 
@@ -644,8 +815,8 @@ function mountEvents() {
     });
   }
 
-  if (awardPointsButton) {
-    awardPointsButton.addEventListener('click', () => openPointsModal());
+  if (adminAwardButton) {
+    adminAwardButton.addEventListener('click', () => openPointsModal());
   }
 
   if (closePointsModal) {
@@ -687,6 +858,19 @@ function mountEvents() {
       participant.totalPoints += amount;
       participant.monthlyPoints += amount;
       setParticipants(participants);
+
+      const history = getHistory();
+      history.push({
+        id: `hist-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+        participantId: participant.id,
+        participantName: participant.name,
+        reason,
+        amount,
+        date: new Date().toISOString(),
+      });
+      setHistory(history);
+      renderHistoryTable();
+
       refreshUI();
       showToast(`+${amount} Data Coins para ${participant.name} · ${reason}`);
       if (pointsModal) pointsModal.classList.add('hidden');
@@ -706,6 +890,7 @@ function initialize() {
   renderDataCoinFeatures();
   renderTiersLegend();
   refreshUI();
+  renderHistoryTable();
   mountEvents();
   initScrollReveal();
 }

@@ -11,6 +11,7 @@
   </head>
   <body>
     <div class="page-shell">
+      <div id="publicView">
       <section class="quick-actions-bar">
         <div class="brand-block">
           <div class="brand-mark">
@@ -46,10 +47,12 @@
         <div class="data-coin-top">
           <div class="section-intro">
             <p class="panel-label">Qué es un Data Coin</p>
-            <h2>Monedas digitales para reconocer resultados y generar orgullo del equipo.</h2>
+            <h2>Monedas digitales para reconocer resultados y generar <span class="underline-squiggle">orgullo del equipo</span>.</h2>
             <p>Un Data Coin es una unidad de valor interna que transforma logros, ideas y colaboración en una experiencia visible, gamificada y alineada con los objetivos de tu empresa.</p>
           </div>
           <div class="coin-showcase">
+            <span class="sparkle sparkle-e" data-icon="sparkle"></span>
+            <span class="sparkle sparkle-f" data-icon="sparkle"></span>
             <div class="coin-stage">
               <div class="coin">
                 <div class="coin-face coin-front">
@@ -64,6 +67,10 @@
               </div>
             </div>
             <div class="coin-shadow"></div>
+            <div class="coin-podium">
+              <div class="coin-podium-top"></div>
+              <div class="coin-podium-base"></div>
+            </div>
           </div>
         </div>
         <div class="data-coin-grid">
@@ -94,9 +101,11 @@
           </div>
           <div class="tiers-illustration" aria-hidden="true">
             <div class="tiers-stairs">
-              <div class="tiers-step step-a"></div>
-              <div class="tiers-step step-b"></div>
-              <div class="tiers-step step-c"><span class="tiers-flag" data-icon="flag"></span></div>
+              <div class="tiers-step step-1"></div>
+              <div class="tiers-step step-2"></div>
+              <div class="tiers-step step-3"></div>
+              <div class="tiers-step step-4"></div>
+              <div class="tiers-step step-5"><span class="tiers-flag" data-icon="flag"></span></div>
             </div>
             <span class="sparkle sparkle-c" data-icon="sparkle"></span>
             <span class="sparkle sparkle-d" data-icon="sparkle"></span>
@@ -136,7 +145,6 @@
               <h2>Equipo activo</h2>
             </div>
             <div class="panel-header-actions">
-              <button id="awardPointsButton" class="btn btn-primary hidden">🪙 Otorgar puntos</button>
               <span id="modeBadge" class="badge">Modo visitante</span>
             </div>
           </div>
@@ -158,21 +166,75 @@
           <p id="emptyState" class="small-text empty-state hidden">No se encontraron participantes con esos filtros.</p>
         </section>
       </main>
+      </div>
+
+      <div id="adminView" class="admin-view hidden">
+        <section class="admin-bar">
+          <div class="brand-block">
+            <div class="brand-mark">
+              <div class="coin coin--mini">
+                <div class="coin-face coin-front">
+                  <span class="coin-mark">GBA</span>
+                  <span class="coin-sub">DATA COIN</span>
+                </div>
+                <div class="coin-face coin-back">
+                  <span class="coin-mark">★</span>
+                  <span class="coin-sub">LATAM</span>
+                </div>
+                <div class="coin-rim"></div>
+              </div>
+            </div>
+            <div class="brand-title">
+              <span class="brand-title-main">DataCoins</span>
+              <span class="brand-title-sub">Panel administradora</span>
+            </div>
+          </div>
+          <div class="quick-actions-buttons">
+            <button id="adminAwardButton" class="btn btn-primary"><span class="btn-icon" data-icon="coin"></span>Otorgar puntos</button>
+            <button id="logoutButton" class="btn btn-secondary"><span class="btn-icon" data-icon="logout"></span>Cerrar sesión</button>
+          </div>
+        </section>
+
+        <section class="panel history-panel">
+          <div class="panel-header">
+            <div>
+              <p class="panel-label">Historial de aportes</p>
+              <h2>Puntos otorgados</h2>
+            </div>
+            <span class="badge" id="historyCountBadge">0 registros</span>
+          </div>
+          <div class="table-wrap">
+            <table class="history-table">
+              <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>Participante</th>
+                  <th>Descripción</th>
+                  <th>Puntos</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="historyTableBody"></tbody>
+            </table>
+          </div>
+          <p id="historyEmptyState" class="small-text empty-state hidden">Aún no se han otorgado puntos.</p>
+        </section>
+      </div>
     </div>
 
     <div id="loginModal" class="modal hidden">
       <div class="modal-card">
         <button id="closeModal" class="close-modal">✕</button>
         <h3>Ingreso administradora</h3>
-        <p>Usa usuario y contraseña de demostración para activar el panel de administración.</p>
+        <p>Ingresa tus credenciales para activar el panel de administración.</p>
         <form id="loginForm" class="form-grid">
           <label>
             Usuario
-            <input type="text" id="loginUser" value="admin" required />
+            <input type="text" id="loginUser" placeholder="Usuario" autocomplete="off" required />
           </label>
           <label>
             Contraseña
-            <input type="password" id="loginPass" value="GBA2026" required />
+            <input type="password" id="loginPass" placeholder="Contraseña" autocomplete="off" required />
           </label>
           <button type="submit" class="btn btn-primary full">Ingresar</button>
         </form>
