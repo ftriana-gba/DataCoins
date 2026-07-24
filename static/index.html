@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GBA LATAM | DataCoins</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&family=Raleway:wght@600;700;800&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <section class="quick-actions-bar">
+        <div class="brand-block">
+          <div class="brand-mark">
+            <div class="coin coin--mini">
+              <div class="coin-face coin-front">
+                <span class="coin-mark">GBA</span>
+                <span class="coin-sub">DATA COIN</span>
+              </div>
+              <div class="coin-face coin-back">
+                <span class="coin-mark">★</span>
+                <span class="coin-sub">LATAM</span>
+              </div>
+              <div class="coin-rim"></div>
+            </div>
+            <span class="sparkle sparkle-a" data-icon="sparkle"></span>
+            <span class="sparkle sparkle-b" data-icon="sparkle"></span>
+          </div>
+          <div class="brand-title">
+            <span class="brand-title-main">DataCoins</span>
+            <span class="brand-title-sub">GBA LATAM</span>
+          </div>
+        </div>
+        <div class="quick-actions-copy">
+          <p>Panel de motivación del equipo de Gobierno de Datos: reconoce aportes, sube de nivel y sigue el ranking del mes.</p>
+        </div>
+        <div class="quick-actions-buttons">
+          <button id="loginButton" class="btn btn-primary"><span class="btn-icon" data-icon="lock"></span>Ingresar administradora</button>
+          <button id="viewPodium" class="btn btn-secondary"><span class="btn-icon" data-icon="trophy"></span>Ver podio del mes</button>
+        </div>
+      </section>
+
+      <section class="what-is-data-coin">
+        <div class="data-coin-top">
+          <div class="section-intro">
+            <p class="panel-label">Qué es un Data Coin</p>
+            <h2>Monedas digitales para reconocer resultados y generar orgullo del equipo.</h2>
+            <p>Un Data Coin es una unidad de valor interna que transforma logros, ideas y colaboración en una experiencia visible, gamificada y alineada con los objetivos de tu empresa.</p>
+          </div>
+          <div class="coin-showcase">
+            <div class="coin-stage">
+              <div class="coin">
+                <div class="coin-face coin-front">
+                  <span class="coin-mark">GBA</span>
+                  <span class="coin-sub">DATA COIN</span>
+                </div>
+                <div class="coin-face coin-back">
+                  <span class="coin-mark">★</span>
+                  <span class="coin-sub">LATAM</span>
+                </div>
+                <div class="coin-rim"></div>
+              </div>
+            </div>
+            <div class="coin-shadow"></div>
+          </div>
+        </div>
+        <div class="data-coin-grid">
+          <article class="feature-card">
+            <span class="feature-tag">Reconocimiento</span>
+            <h3>Visibiliza el impacto</h3>
+            <p>Cada acción recibe puntos, cada logro es reconocido públicamente para fomentar compromiso.</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-tag">Motivación</span>
+            <h3>Hazlo tangible</h3>
+            <p>Los datos se convierten en recompensas digitales que incentivan la participación constante.</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-tag">Estrategia</span>
+            <h3>Alinea al equipo</h3>
+            <p>DataCoins ayuda a enfocar los esfuerzos en lo que más aporta a resultados concretos.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="tiers-section">
+        <div class="tiers-header">
+          <div class="section-intro">
+            <p class="panel-label">Sistema de niveles</p>
+            <h2>Sube de categoría acumulando Data Coins.</h2>
+            <p>Cada integrante avanza por niveles según sus puntos totales: de Explorador a Legendario. Entre más aportas, más alto llegas.</p>
+          </div>
+          <div class="tiers-illustration" aria-hidden="true">
+            <div class="tiers-stairs">
+              <div class="tiers-step step-a"></div>
+              <div class="tiers-step step-b"></div>
+              <div class="tiers-step step-c"><span class="tiers-flag" data-icon="flag"></span></div>
+            </div>
+            <span class="sparkle sparkle-c" data-icon="sparkle"></span>
+            <span class="sparkle sparkle-d" data-icon="sparkle"></span>
+          </div>
+        </div>
+        <div id="tiersGrid" class="tiers-grid"></div>
+      </section>
+
+      <section class="closing-banner">
+        <div class="closing-icon" data-icon="rocket"></div>
+        <div class="closing-copy">
+          <h3>Cada acción cuenta.</h3>
+          <p>Aporta, colabora y convierte tus ideas en impacto.</p>
+        </div>
+        <div class="closing-pill">
+          <span class="closing-pill-icon" data-icon="sparkle"></span>
+          <span>¡Sigue creciendo y deja tu huella en el Gobierno de Datos!</span>
+        </div>
+      </section>
+
+      <main class="content">
+        <section class="panel podium-panel" id="podiumPanel">
+          <div class="panel-header">
+            <div>
+              <p class="panel-label">Podio mensual</p>
+              <h2>Ranking del mes</h2>
+            </div>
+            <span class="badge">Jul 2026</span>
+          </div>
+          <div id="podiumGrid" class="podium-stage"></div>
+        </section>
+
+        <section class="panel" id="participantsPanel">
+          <div class="panel-header">
+            <div>
+              <p class="panel-label">Participantes</p>
+              <h2>Equipo activo</h2>
+            </div>
+            <div class="panel-header-actions">
+              <button id="awardPointsButton" class="btn btn-primary hidden">🪙 Otorgar puntos</button>
+              <span id="modeBadge" class="badge">Modo visitante</span>
+            </div>
+          </div>
+
+          <div class="controls-bar">
+            <div class="search-field">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="searchInput" placeholder="Buscar por nombre o cargo..." />
+            </div>
+            <select id="sortSelect" class="select-field">
+              <option value="points">Más puntos</option>
+              <option value="name">Nombre A-Z</option>
+              <option value="cargo">Cargo A-Z</option>
+            </select>
+          </div>
+          <div id="filterChips" class="filter-chips"></div>
+
+          <div id="participantsGrid" class="participants-grid"></div>
+          <p id="emptyState" class="small-text empty-state hidden">No se encontraron participantes con esos filtros.</p>
+        </section>
+      </main>
+    </div>
+
+    <div id="loginModal" class="modal hidden">
+      <div class="modal-card">
+        <button id="closeModal" class="close-modal">✕</button>
+        <h3>Ingreso administradora</h3>
+        <p>Usa usuario y contraseña de demostración para activar el panel de administración.</p>
+        <form id="loginForm" class="form-grid">
+          <label>
+            Usuario
+            <input type="text" id="loginUser" value="admin" required />
+          </label>
+          <label>
+            Contraseña
+            <input type="password" id="loginPass" value="GBA2026" required />
+          </label>
+          <button type="submit" class="btn btn-primary full">Ingresar</button>
+        </form>
+        <p class="hint">Credenciales demo: admin / GBA2026.</p>
+      </div>
+    </div>
+
+    <div id="pointsModal" class="modal hidden">
+      <div class="modal-card">
+        <button id="closePointsModal" class="close-modal">✕</button>
+        <h3>Otorgar Data Coins</h3>
+        <p>Selecciona el participante y el motivo del reconocimiento.</p>
+        <form id="pointsForm" class="form-grid">
+          <label>
+            Participante
+            <select id="pointsParticipant" required></select>
+          </label>
+          <label>
+            Motivo
+            <select id="pointsReason" required></select>
+          </label>
+          <label>
+            Cantidad de puntos
+            <input type="number" id="pointsAmount" value="10" min="1" max="500" required />
+          </label>
+          <div class="quick-amounts">
+            <button type="button" class="chip-btn" data-amount="5">+5</button>
+            <button type="button" class="chip-btn" data-amount="10">+10</button>
+            <button type="button" class="chip-btn" data-amount="25">+25</button>
+            <button type="button" class="chip-btn" data-amount="50">+50</button>
+          </div>
+          <button type="submit" class="btn btn-primary full">Otorgar puntos</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="notification" class="toast hidden"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
